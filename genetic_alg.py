@@ -34,8 +34,13 @@ MUTATE_PROBS = (0.25, 0.25, 0.5) # 0.25, 0.25, 0.5 - из статьи
 INPUT_ACTIVATION = Act.linear
 OUTPUT_ACTIVATION = Act.linear
 
+
+""" ============ ПАРАМЕТРЫ ЭКСПЕРИМЕНТОВ ============ """
 TEST_EPISODES = 3
 FINAL_TEST_EPISODES = 5
+CHECKPOINTS_PERIOD = 50 # Периодичность сохранения чекпоинтов
+
+os.makedirs('ind_checkpoints', exist_ok=True)
 
 def init_population(pop_size, start_cons=4):
     population = []
@@ -166,7 +171,7 @@ if __name__ == "__main__":
             }, step=gen)
 
             """ ЧЕКПОИНТЫ (ОЦЕНКА РАЗВИТИЯ) """
-            if gen % 50 == 0 or gen == 1:
+            if gen % CHECKPOINTS_PERIOD == 0 or gen == 1 or gen == CHECKPOINTS_PERIOD:
                 best_id = min(total_ranks, key=lambda i_id: total_ranks[i_id])
                 best_ind = population[best_id]
                 save_ind(best_ind, f'ind_checkpoints/best_ind_gen_{gen}.json')
