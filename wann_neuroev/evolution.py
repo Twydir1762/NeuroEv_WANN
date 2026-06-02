@@ -9,7 +9,6 @@ OUTPUT = 1
 HIDDEN = 2
 
 """ ========= Функции активации ========= """
-
 @dataclass
 class Act:
     linear = 'linear'
@@ -33,7 +32,6 @@ def activate(x, name):
     return ACTIVATIONS[name](x)
 
 """ ========= База ========= """
-
 @dataclass
 class Node:
     type: int
